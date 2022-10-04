@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>BUAA Campus Pass Urlgen</title>
+  </head>
+
+  <script>
+    function gen() {
+        let encodeFunc = encodeURIComponent;
+        let name = encodeFunc(document.getElementById("name").value);
+        let gender = encodeFunc(document.getElementById("gender").value);
+        let id = encodeFunc(document.getElementById("id").value);
+        let affiliate = encodeFunc(document.getElementById("affiliate").value);
+        let counselor = encodeFunc(document.getElementById("counselor").value);
+        let phone = encodeFunc(document.getElementById("counselor").value);
+        let avatar = encodeFunc(document.getElementById("avatar").value);
+        let position = encodeFunc(document.getElementById("position").value);
+        let type = encodeFunc(document.getElementById("typeck").ck.value);
+        let url = window.location.href;
+        let query = "qbegin=1";
+        query += "&name=" + name;
+        query += "&gender=" + gender;
+        query += "&id=" + id;
+        query += "&affiliate=" + affiliate;
+        query += "&counselor=" + counselor;
+        query += "&phone=" + phone;
+        query += "&avatar=" + avatar;
+        query += "&position=" + position;
+        query += "&type=" + type;
+        query += "&qend=1";
+        let hash = window.btoa(query);
+        url = url.slice(0, url.lastIndexOf("/") == -1 ? url.length : url.lastIndexOf("/") + 1);
+        url += "qrcode#" + hash;
+        document.getElementById("instruction").setAttribute("style", "");
+        document.getElementById("hyperlink").innerHTML = "<a href='" + url +"'>点击此链接访问</a>";
+        document.getElementById("hyperlink").setAttribute("style", "");
+    }
+  </script>
+
+  <body>
+    <h1>BUAA QRCode Urlgen</h1>
+    <p><b>注意：请通过正规途径完成出入校申请后，再进出校园，请对自己和周围人的安全负责。</b></p>
+    <h2>使用指引</h2>
+    <li>填写个人信息</li>
+    <li>将自己的照片上传至公开图床（路过图床etc.），并将url填入对应位置</li>
+    <li>点击“生成”按钮，访问生成的url即可</li>
+    <li>注：url仅需生成一次，便可一直使用</li>
+    <p><b>声明：此网站开源，你的个人信息不会被以任何形式保存</b></p>
+    <p>姓名：<input type="text" id="name" /></p>
+    <p>性别：<input type="text" id="gender" /></p>
+    <p>学号：<input type="text" id="id" /></p>
+    <p>学院：<input type="text" id="affiliate" /></p>
+    <p>辅导员：<input type="text" id="counselor"/></p>
+    <p>辅导员电话：<input type="text" id="phone"/></p>
+    <p>照片地址：<input type="text" id="avatar" /></p>
+    <p>所在位置：<input type="text" id="position" /></p>
+    <p>入校码/出校码：<form id="typeck">
+        <input type="radio" name="ck" value="rxk" checked/>入校码
+        <input type="radio" name="ck" value="cxk">出校码
+    </form></p>
+    <p><button onclick="gen()">生成！</button></p>
+    <p style="display: none;" id="instruction">请点击以下链接访问，如需保存，可收藏下一页面</p>
+    <p style="display: none;" id="hyperlink"></p>
+  </body>
+</html>
